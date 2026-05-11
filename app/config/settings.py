@@ -6,6 +6,7 @@ class Settings(BaseSettings):
     app_version: str = "0.1.0"
     app_env: str = "local"
     database_url: str = "sqlite:///./training_app.db"
+    bot_token: str = ""
 
     model_config = SettingsConfigDict(
         env_file=".env",

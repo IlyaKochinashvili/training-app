@@ -13,6 +13,7 @@ dependencies = [
     "httpx",
     "ruff",
     "pre-commit",
+    "aiogram>=3.28.2",
 ]
 
 [tool.ruff]

@@ -1,6 +1,6 @@
 UV := uv
 
-.PHONY: venv install run lint format-check format test build pre-commit-install health
+.PHONY: venv install run bot lint format-check format test build pre-commit-install health
 
 venv:
 	$(UV) venv
@@ -10,6 +10,9 @@ install:
 
 run:
 	$(UV) run uvicorn app.main:app --reload
+
+bot:
+	$(UV) run python -m bot.main
 
 lint:
 	$(UV) run ruff check .
