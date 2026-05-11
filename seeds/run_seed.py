@@ -9,8 +9,8 @@ from seeds.exercises import EXERCISES
 
 
 async def seed(session: AsyncSession) -> None:
-    for name_uk, muscle_group, aliases in EXERCISES:
-        exercise = Exercise(name_uk=name_uk, muscle_group=muscle_group)
+    for name_uk, muscle_group, has_angle_variant, aliases in EXERCISES:
+        exercise = Exercise(name_uk=name_uk, muscle_group=muscle_group, has_angle_variant=has_angle_variant)
         session.add(exercise)
         await session.flush()
 
