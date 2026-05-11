@@ -6,7 +6,7 @@ from aiogram.fsm.storage.memory import MemoryStorage
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 
 from app.config.settings import settings
-from bot.handlers import common, workout
+from bot.handlers import common, profile, workout
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -20,6 +20,7 @@ async def main() -> None:
     dp = Dispatcher(storage=MemoryStorage())
 
     dp.include_router(common.router)
+    dp.include_router(profile.router)
     dp.include_router(workout.router)
 
     # Inject db session into every handler via middleware
