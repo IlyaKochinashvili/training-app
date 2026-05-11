@@ -107,12 +107,16 @@
 
 ## 10. Workout input UX
 - [ ] Show format hint before user enters exercise
-- [ ] Format hint in Ukrainian with example
+- [ ] Format hint in Ukrainian with example (no angle in text)
 - [ ] Accept input as multiline: name on first line, then `weight reps` per line
 - [ ] On format error — show hint again with specific error
 - [ ] Support decimal weight with dot and comma (e.g. `102.5` or `102,5`)
 - [ ] Add `/cancel` command to exit current state
 - [ ] Show set summary after saving (weight × reps per set)
+- [ ] For incline exercises — ask angle via inline buttons (15 / 30 / 45 / 60 / 75)
+- [ ] Do not accept non-standard angles (e.g. 17°) — only the 5 presets
+- [ ] Mark exercises as `has_angle_variant` in seed data
+- [ ] Append selected angle to canonical name before saving (e.g. "Жим гантелей 45°")
 
 ---
 
