@@ -1,6 +1,6 @@
 UV := uv
 
-.PHONY: venv install run lint format-check format test build pre-commit-install health
+.PHONY: venv install run lint format-check format test build pre-commit-install health db-seed
 
 venv:
 	$(UV) venv
@@ -31,3 +31,6 @@ pre-commit-install:
 
 health:
 	curl http://127.0.0.1:8000/health
+
+db-seed:
+	$(UV) run python -m seeds.run_seed
