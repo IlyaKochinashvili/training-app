@@ -1,12 +1,13 @@
 from models.exercise import MuscleGroup
 from models.exercise_alias import Language
 
-# (canonical_uk, muscle_group, [(alias, language), ...])
-EXERCISES: list[tuple[str, MuscleGroup, list[tuple[str, Language]]]] = [
+# (canonical_uk, muscle_group, has_angle_variant, [(alias, language), ...])
+EXERCISES: list[tuple[str, MuscleGroup, bool, list[tuple[str, Language]]]] = [
     # ── CHEST ────────────────────────────────────────────────────────────────
     (
         "Жим лежачи",
         MuscleGroup.chest,
+        False,
         [
             ("жим", Language.uk),
             ("жим лежа", Language.uk),
@@ -16,18 +17,20 @@ EXERCISES: list[tuple[str, MuscleGroup, list[tuple[str, Language]]]] = [
         ],
     ),
     (
-        "Жим лежачи на похилій лаві",
+        "Жим штанги на похилій лаві",
         MuscleGroup.chest,
+        True,
         [
             ("жим на похилій", Language.uk),
-            ("похила лава", Language.uk),
+            ("похила лава штанга", Language.uk),
             ("incline bench press", Language.en),
             ("incline bench", Language.en),
         ],
     ),
     (
-        "Жим лежачи на зворотній похилій лаві",
+        "Жим штанги на зворотній похилій лаві",
         MuscleGroup.chest,
+        False,
         [
             ("жим на зворотній", Language.uk),
             ("decline bench press", Language.en),
@@ -37,15 +40,29 @@ EXERCISES: list[tuple[str, MuscleGroup, list[tuple[str, Language]]]] = [
     (
         "Жим гантелей лежачи",
         MuscleGroup.chest,
+        False,
         [
-            ("жим гантелей", Language.uk),
+            ("жим гантелей плоско", Language.uk),
             ("dumbbell bench press", Language.en),
             ("db bench", Language.en),
+            ("flat db press", Language.en),
+        ],
+    ),
+    (
+        "Жим гантелей на похилій лаві",
+        MuscleGroup.chest,
+        True,
+        [
+            ("жим гантелей похила", Language.uk),
+            ("похила лава гантелі", Language.uk),
+            ("incline dumbbell press", Language.en),
+            ("incline db press", Language.en),
         ],
     ),
     (
         "Розведення гантелей лежачи",
         MuscleGroup.chest,
+        False,
         [
             ("розведення", Language.uk),
             ("дефлексія", Language.uk),
@@ -55,8 +72,19 @@ EXERCISES: list[tuple[str, MuscleGroup, list[tuple[str, Language]]]] = [
         ],
     ),
     (
+        "Розведення гантелей на похилій лаві",
+        MuscleGroup.chest,
+        True,
+        [
+            ("розведення похила", Language.uk),
+            ("incline flyes", Language.en),
+            ("incline dumbbell flyes", Language.en),
+        ],
+    ),
+    (
         "Кросовер у блоці",
         MuscleGroup.chest,
+        False,
         [
             ("кросовер", Language.uk),
             ("cable crossover", Language.en),
@@ -66,6 +94,7 @@ EXERCISES: list[tuple[str, MuscleGroup, list[tuple[str, Language]]]] = [
     (
         "Жим у тренажері для грудей",
         MuscleGroup.chest,
+        False,
         [
             ("тренажер груди", Language.uk),
             ("chest press machine", Language.en),
@@ -75,6 +104,7 @@ EXERCISES: list[tuple[str, MuscleGroup, list[tuple[str, Language]]]] = [
     (
         "Віджимання на брусах",
         MuscleGroup.chest,
+        False,
         [
             ("бруси", Language.uk),
             ("dips", Language.en),
@@ -85,6 +115,7 @@ EXERCISES: list[tuple[str, MuscleGroup, list[tuple[str, Language]]]] = [
     (
         "Підтягування",
         MuscleGroup.back,
+        False,
         [
             ("pull-up", Language.en),
             ("pullup", Language.en),
@@ -94,6 +125,7 @@ EXERCISES: list[tuple[str, MuscleGroup, list[tuple[str, Language]]]] = [
     (
         "Тяга штанги в нахилі",
         MuscleGroup.back,
+        False,
         [
             ("тяга в нахилі", Language.uk),
             ("тяга штанги", Language.uk),
@@ -105,6 +137,7 @@ EXERCISES: list[tuple[str, MuscleGroup, list[tuple[str, Language]]]] = [
     (
         "Тяга гантелі в нахилі",
         MuscleGroup.back,
+        False,
         [
             ("тяга гантелі", Language.uk),
             ("dumbbell row", Language.en),
@@ -115,6 +148,7 @@ EXERCISES: list[tuple[str, MuscleGroup, list[tuple[str, Language]]]] = [
     (
         "Вертикальна тяга у блоці",
         MuscleGroup.back,
+        False,
         [
             ("тяга зверху", Language.uk),
             ("тяга у тренажері зверху", Language.uk),
@@ -126,6 +160,7 @@ EXERCISES: list[tuple[str, MuscleGroup, list[tuple[str, Language]]]] = [
     (
         "Горизонтальна тяга у блоці",
         MuscleGroup.back,
+        False,
         [
             ("тяга до пояса", Language.uk),
             ("тяга знизу", Language.uk),
@@ -137,6 +172,7 @@ EXERCISES: list[tuple[str, MuscleGroup, list[tuple[str, Language]]]] = [
     (
         "Тяга Т-грифа",
         MuscleGroup.back,
+        False,
         [
             ("т-тяга", Language.uk),
             ("t-bar row", Language.en),
@@ -146,6 +182,7 @@ EXERCISES: list[tuple[str, MuscleGroup, list[tuple[str, Language]]]] = [
     (
         "Тяга блоку до обличчя",
         MuscleGroup.back,
+        False,
         [
             ("тяга до обличчя", Language.uk),
             ("face pull", Language.en),
@@ -156,6 +193,7 @@ EXERCISES: list[tuple[str, MuscleGroup, list[tuple[str, Language]]]] = [
     (
         "Присідання зі штангою",
         MuscleGroup.legs,
+        False,
         [
             ("присідання", Language.uk),
             ("squat", Language.en),
@@ -166,6 +204,7 @@ EXERCISES: list[tuple[str, MuscleGroup, list[tuple[str, Language]]]] = [
     (
         "Жим ногами",
         MuscleGroup.legs,
+        False,
         [
             ("жим ногами", Language.uk),
             ("leg press", Language.en),
@@ -174,6 +213,7 @@ EXERCISES: list[tuple[str, MuscleGroup, list[tuple[str, Language]]]] = [
     (
         "Розгинання ніг у тренажері",
         MuscleGroup.legs,
+        False,
         [
             ("розгинання ніг", Language.uk),
             ("leg extension", Language.en),
@@ -183,6 +223,7 @@ EXERCISES: list[tuple[str, MuscleGroup, list[tuple[str, Language]]]] = [
     (
         "Згинання ніг лежачи",
         MuscleGroup.legs,
+        False,
         [
             ("згинання ніг", Language.uk),
             ("лежачи згинання", Language.uk),
@@ -193,6 +234,7 @@ EXERCISES: list[tuple[str, MuscleGroup, list[tuple[str, Language]]]] = [
     (
         "Румунська тяга",
         MuscleGroup.legs,
+        False,
         [
             ("румунська", Language.uk),
             ("ртяга", Language.uk),
@@ -203,6 +245,7 @@ EXERCISES: list[tuple[str, MuscleGroup, list[tuple[str, Language]]]] = [
     (
         "Мертва тяга",
         MuscleGroup.legs,
+        False,
         [
             ("дедліфт", Language.uk),
             ("deadlift", Language.en),
@@ -212,6 +255,7 @@ EXERCISES: list[tuple[str, MuscleGroup, list[tuple[str, Language]]]] = [
     (
         "Випади",
         MuscleGroup.legs,
+        False,
         [
             ("lunges", Language.en),
             ("walking lunges", Language.en),
@@ -220,6 +264,7 @@ EXERCISES: list[tuple[str, MuscleGroup, list[tuple[str, Language]]]] = [
     (
         "Підйом на носки стоячи",
         MuscleGroup.legs,
+        False,
         [
             ("підйом на носки", Language.uk),
             ("литки стоячи", Language.uk),
@@ -231,6 +276,7 @@ EXERCISES: list[tuple[str, MuscleGroup, list[tuple[str, Language]]]] = [
     (
         "Жим штанги стоячи",
         MuscleGroup.shoulders,
+        False,
         [
             ("армійський жим", Language.uk),
             ("overhead press", Language.en),
@@ -242,6 +288,7 @@ EXERCISES: list[tuple[str, MuscleGroup, list[tuple[str, Language]]]] = [
     (
         "Жим гантелей сидячи",
         MuscleGroup.shoulders,
+        False,
         [
             ("жим гантелей на плечі", Language.uk),
             ("dumbbell shoulder press", Language.en),
@@ -252,6 +299,7 @@ EXERCISES: list[tuple[str, MuscleGroup, list[tuple[str, Language]]]] = [
     (
         "Підйом гантелей через сторони",
         MuscleGroup.shoulders,
+        False,
         [
             ("махи в сторони", Language.uk),
             ("махи", Language.uk),
@@ -263,6 +311,7 @@ EXERCISES: list[tuple[str, MuscleGroup, list[tuple[str, Language]]]] = [
     (
         "Підйом гантелей перед собою",
         MuscleGroup.shoulders,
+        False,
         [
             ("підйом перед собою", Language.uk),
             ("front raise", Language.en),
@@ -272,6 +321,7 @@ EXERCISES: list[tuple[str, MuscleGroup, list[tuple[str, Language]]]] = [
     (
         "Тяга штанги до підборіддя",
         MuscleGroup.shoulders,
+        False,
         [
             ("тяга до підборіддя", Language.uk),
             ("upright row", Language.en),
@@ -281,6 +331,7 @@ EXERCISES: list[tuple[str, MuscleGroup, list[tuple[str, Language]]]] = [
     (
         "Підйом штанги на біцепс",
         MuscleGroup.arms,
+        False,
         [
             ("підйом на біцепс", Language.uk),
             ("barbell curl", Language.en),
@@ -291,6 +342,7 @@ EXERCISES: list[tuple[str, MuscleGroup, list[tuple[str, Language]]]] = [
     (
         "Підйом гантелей на біцепс",
         MuscleGroup.arms,
+        False,
         [
             ("гантелі на біцепс", Language.uk),
             ("dumbbell curl", Language.en),
@@ -301,6 +353,7 @@ EXERCISES: list[tuple[str, MuscleGroup, list[tuple[str, Language]]]] = [
     (
         "Французький жим",
         MuscleGroup.arms,
+        False,
         [
             ("французький", Language.uk),
             ("skull crusher", Language.en),
@@ -311,6 +364,7 @@ EXERCISES: list[tuple[str, MuscleGroup, list[tuple[str, Language]]]] = [
     (
         "Розгинання рук у блоці",
         MuscleGroup.arms,
+        False,
         [
             ("розгинання трицепс", Language.uk),
             ("трицепс блок", Language.uk),
@@ -322,6 +376,7 @@ EXERCISES: list[tuple[str, MuscleGroup, list[tuple[str, Language]]]] = [
     (
         "Віджимання на брусах для трицепса",
         MuscleGroup.arms,
+        False,
         [
             ("бруси трицепс", Language.uk),
             ("tricep dips", Language.en),
@@ -331,6 +386,7 @@ EXERCISES: list[tuple[str, MuscleGroup, list[tuple[str, Language]]]] = [
     (
         "Планка",
         MuscleGroup.core,
+        False,
         [
             ("plank", Language.en),
         ],
@@ -338,6 +394,7 @@ EXERCISES: list[tuple[str, MuscleGroup, list[tuple[str, Language]]]] = [
     (
         "Скручування",
         MuscleGroup.core,
+        False,
         [
             ("crunch", Language.en),
             ("crunches", Language.en),
@@ -347,6 +404,7 @@ EXERCISES: list[tuple[str, MuscleGroup, list[tuple[str, Language]]]] = [
     (
         "Підйом ніг лежачи",
         MuscleGroup.core,
+        False,
         [
             ("підйом ніг", Language.uk),
             ("leg raise", Language.en),

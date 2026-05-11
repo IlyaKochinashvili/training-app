@@ -39,6 +39,17 @@ def confirm_exercise_keyboard(canonical_name: str):
     return builder.as_markup()
 
 
+STANDARD_ANGLES = [15, 30, 45, 60, 75]
+
+
+def angle_keyboard():
+    builder = InlineKeyboardBuilder()
+    for angle in STANDARD_ANGLES:
+        builder.button(text=f"{angle}°", callback_data=f"angle:{angle}")
+    builder.adjust(5)
+    return builder.as_markup()
+
+
 def confirm_finish_keyboard():
     builder = InlineKeyboardBuilder()
     builder.button(text="✅ Завершити", callback_data="finish:confirm")
