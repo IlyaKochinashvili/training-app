@@ -1,10 +1,10 @@
 import asyncio
 
-from models.exercise import Exercise
-from models.exercise_alias import ExerciseAlias
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 
 from app.config.settings import settings
+from models.exercise import Exercise
+from models.exercise_alias import ExerciseAlias
 from seeds.exercises import EXERCISES
 
 

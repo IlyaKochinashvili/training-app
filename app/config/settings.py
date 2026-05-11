@@ -5,7 +5,7 @@ class Settings(BaseSettings):
     app_name: str = "Training App"
     app_version: str = "0.1.0"
     app_env: str = "local"
-    database_url: str = "sqlite:///./training_app.db"
+    database_url: str = "postgresql+asyncpg://postgres:postgres@localhost:5432/training_app"
     bot_token: str = ""
 
     model_config = SettingsConfigDict(
