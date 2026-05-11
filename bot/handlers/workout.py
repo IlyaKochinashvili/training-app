@@ -1,9 +1,6 @@
 from aiogram import F, Router
 from aiogram.fsm.context import FSMContext
 from aiogram.types import CallbackQuery, Message
-from services.exercise_parser import ParseError, parse_exercise_input
-from services.exercise_resolver import is_trash, resolve_exercise
-from services.workout import finish_session, get_active_session, start_session
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from bot.keyboards.main import (
@@ -16,6 +13,9 @@ from bot.keyboards.main import (
     workout_menu,
 )
 from bot.states.workout import WorkoutFlow
+from services.exercise_parser import ParseError, parse_exercise_input
+from services.exercise_resolver import is_trash, resolve_exercise
+from services.workout import finish_session, get_active_session, start_session
 
 router = Router()
 
@@ -27,8 +27,9 @@ _RESOLVED_KEY = "resolved_name"
 
 async def _load_candidates(db: AsyncSession) -> list[tuple[str, list[str]]]:
     """Fetch all exercises with their aliases from DB."""
-    from models.exercise import Exercise
     from sqlalchemy import select
+
+    from models.exercise import Exercise
 
     result = await db.execute(select(Exercise))
     exercises = result.scalars().all()
@@ -182,8 +183,9 @@ async def handle_rir(callback: CallbackQuery, state: FSMContext, db: AsyncSessio
 
 
 async def _get_exercise_by_name(db: AsyncSession, name: str):
-    from models.exercise import Exercise
     from sqlalchemy import select
+
+    from models.exercise import Exercise
 
     result = await db.execute(select(Exercise).where(Exercise.name_uk == name))
     return result.scalar_one_or_none()
