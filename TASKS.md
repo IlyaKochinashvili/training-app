@@ -1,93 +1,129 @@
 # TASKS
 
 ## 0. Project setup cleanup
-- [ ] Add smoke test for `/health`
-- [ ] Remove unused and empty files
-- [ ] Verify README and local run instructions
-- [ ] Verify Makefile commands
+- [x] Add smoke test for `/health`
+- [x] Remove unused and empty files
+- [x] Verify README and local run instructions
+- [x] Verify Makefile commands
 - [ ] Verify Docker build
-- [ ] Finalize clean base setup
+- [x] Finalize clean base setup
 
 ---
 
 ## 1. PostgreSQL setup
-- [ ] Replace SQLite with PostgreSQL
-- [ ] Add PostgreSQL environment variables
-- [ ] Update database session setup
+- [x] Replace SQLite with PostgreSQL
+- [x] Add PostgreSQL environment variables
+- [x] Update database session setup
 - [ ] Verify database connection
-- [ ] Add PostgreSQL container for local development
-- [ ] Add database healthcheck
+- [x] Add PostgreSQL container for local development
+- [x] Add database healthcheck
 
 ---
 
 ## 2. Workout session foundation
-- [ ] Create workout session entity
-- [ ] Add active workout session logic
-- [ ] Add start workout flow
-- [ ] Add finish workout flow
-- [ ] Store `started_at`
-- [ ] Store `finished_at`
-- [ ] Add workout status
+- [x] Create workout session entity
+- [x] Add active workout session logic
+- [x] Add start workout flow
+- [x] Add finish workout flow
+- [x] Store `started_at`
+- [x] Store `finished_at`
+- [x] Add workout status
 
 ---
 
 ## 3. Exercise input parser
-- [ ] Define exercise input format
-- [ ] Parse first line as exercise name
-- [ ] Parse set lines as `weight reps`
-- [ ] Validate sets count
-- [ ] Validate weight values
-- [ ] Validate reps values
-- [ ] Return readable validation errors
+- [x] Define exercise input format
+- [x] Parse first line as exercise name
+- [x] Parse set lines as `weight reps`
+- [x] Validate sets count
+- [x] Validate weight values
+- [x] Validate reps values
+- [x] Return readable validation errors
 
 ---
 
 ## 4. Exercise name normalization and filtering
-- [ ] Define canonical exercise model
-- [ ] Keep canonical exercise names only in Ukrainian
-- [ ] Allow user input in Russian
-- [ ] Normalize exercise names before matching
-- [ ] Add exact match
-- [ ] Add alias match
-- [ ] Add fuzzy match
-- [ ] Reject generic trash names
-- [ ] Do not create new exercise automatically if confidence is low
+- [x] Define canonical exercise model
+- [x] Keep canonical exercise names only in Ukrainian
+- [x] Allow user input in English
+- [x] Normalize exercise names before matching
+- [x] Add exact match
+- [x] Add alias match
+- [x] Add fuzzy match
+- [x] Reject generic trash names
+- [x] Do not create new exercise automatically if confidence is low
 
 ---
 
 ## 5. Base exercise seed
-- [ ] Create initial Ukrainian exercise list
-- [ ] Add Russian aliases
-- [ ] Add common typo aliases
-- [ ] Add seed script or seed command
+- [x] Create initial Ukrainian exercise list
+- [x] Add English aliases
+- [x] Add common typo aliases
+- [x] Add seed script or seed command
 - [ ] Verify matching quality on base examples
 
 ---
 
 ## 6. Telegram bot skeleton
-- [ ] Add Telegram bot base setup
-- [ ] Add main menu
-- [ ] Add "Почати тренування" button
-- [ ] Add "Додати вправу" button
-- [ ] Add "Завершити тренування" button
-- [ ] Add finish confirmation flow
+- [x] Add Telegram bot base setup
+- [x] Add main menu
+- [x] Add "Почати тренування" button
+- [x] Add "Додати вправу" (через текстовий ввід)
+- [x] Add "Завершити тренування" button
+- [x] Add finish confirmation flow
 
 ---
 
 ## 7. Workout flow integration
-- [ ] Connect parser to active workout
-- [ ] Resolve exercise before saving
-- [ ] Save raw user input name separately
-- [ ] Save parsed sets to active workout
-- [ ] Return readable bot response after successful save
+- [x] Connect parser to active workout
+- [x] Resolve exercise before saving
+- [x] Save raw user input name separately
+- [x] Save parsed sets to active workout
+- [x] Return readable bot response after successful save
 
 ---
 
 ## 8. Tests
-- [ ] Add healthcheck smoke test
+- [x] Add healthcheck smoke test
 - [ ] Add database connection test
 - [ ] Add start workout test
 - [ ] Add finish workout test
-- [ ] Add exercise parser tests
-- [ ] Add exercise resolver tests
-- [ ] Add trash-name rejection tests
+- [x] Add exercise parser tests
+- [x] Add exercise resolver tests
+- [x] Add trash-name rejection tests
+
+---
+
+## 9. User profile onboarding
+- [ ] Create user profile model (height, weight, age, sex)
+- [ ] Add user profile migration
+- [ ] Add onboarding flow on first `/start`
+- [ ] Ask height → weight → age → sex step by step
+- [ ] Save profile to DB
+- [ ] Allow user to update profile via `/profile`
+- [ ] Use profile data in progression calculations
+
+---
+
+## 10. Workout input UX
+- [ ] Show format hint before user enters exercise
+- [ ] Format hint in Ukrainian with example (no angle in text)
+- [ ] Accept input as multiline: name on first line, then `weight reps` per line
+- [ ] On format error — show hint again with specific error
+- [ ] Support decimal weight with dot and comma (e.g. `102.5` or `102,5`)
+- [ ] Add `/cancel` command to exit current state
+- [ ] Show set summary after saving (weight × reps per set)
+- [ ] For incline exercises — ask angle via inline buttons (15 / 30 / 45 / 60 / 75)
+- [ ] Do not accept non-standard angles (e.g. 17°) — only the 5 presets
+- [ ] Mark exercises as `has_angle_variant` in seed data
+- [ ] Append selected angle to canonical name before saving (e.g. "Жим гантелей 45°")
+
+---
+
+## 11. Progression algorithm
+- [ ] Define double progression model (reps first, then weight)
+- [ ] Calculate 1RM estimate from set data (Epley formula)
+- [ ] Store per-exercise history per user
+- [ ] After workout — show next session recommendations per exercise
+- [ ] Recommendation: target weight + rep range based on RIR history
+- [ ] Show trend: improving / maintaining / regressing
