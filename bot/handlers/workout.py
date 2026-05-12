@@ -96,9 +96,38 @@ async def ask_finish(message: Message, state: FSMContext) -> None:
 
 @router.callback_query(WorkoutFlow.confirm_finish, F.data == "finish:confirm")
 async def finish_workout(callback: CallbackQuery, state: FSMContext, db: AsyncSession) -> None:
-    await finish_session(db, callback.from_user.id)
+    from sqlalchemy import select
+
+    from models.set import ExerciseSet
+    from services.progression import SetData, format_recommendation, recommend_next
+
+    session = await finish_session(db, callback.from_user.id)
     await state.clear()
-    await callback.message.answer("✅ Тренування завершено! Гарна робота 💪", reply_markup=main_menu())
+
+    summary_lines: list[str] = []
+    rec_lines: list[str] = []
+
+    if session:
+        result = await db.execute(select(ExerciseSet).where(ExerciseSet.session_id == session.id))
+        all_sets = result.scalars().all()
+
+        grouped: dict[str, list[ExerciseSet]] = {}
+        for s in all_sets:
+            grouped.setdefault(s.raw_input, []).append(s)
+
+        for name, sets in grouped.items():
+            top = max(sets, key=lambda s: s.weight * s.reps)
+            summary_lines.append(f"• {name} — {len(sets)} підх., топ: {top.weight} кг × {top.reps}")
+            rec = recommend_next(name, [SetData(s.weight, s.reps, s.rir, s.is_failure) for s in sets])
+            rec_lines.append(format_recommendation(rec))
+
+    body = "✅ Тренування завершено! Гарна робота 💪"
+    if summary_lines:
+        body += "\n\n📊 <b>Підсумок:</b>\n" + "\n".join(summary_lines)
+    if rec_lines:
+        body += "\n\n🔮 <b>Наступне тренування:</b>\n" + "\n".join(rec_lines)
+
+    await callback.message.answer(body, parse_mode="HTML", reply_markup=main_menu())
     await callback.answer()
 
 
